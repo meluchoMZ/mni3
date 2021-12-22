@@ -32,9 +32,11 @@ def handle():
                 o.oscillate_explicit()
                 o.oscillate_implicit()
         elif x == '2':
-            sigma = 0.15
+            tf = float(input("Please insert simulation time: "))
+            sigma = 0.85
             r = 0.02
             e = 10
-            BlackSholes(sigma, r, e).compute()
+            for theta in [1, 0.5, 0]:
+                BlackSholes(sigma, r, e, theta, tf, 0, 0).compute()
         else:
             print("Third problem:")

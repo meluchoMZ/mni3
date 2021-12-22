@@ -65,7 +65,7 @@ class Oscillator:
         y = [self.__y0]
         v = [self.__v0]
         for n in range(1, nn):
-            v.append(v[n-1]+delta/self.__m*(-(self.__w*self.__w)*y[n-1] - 2*self.__psi*v[n-1]))
+            v.append(v[n-1]+delta*(-(self.__w*self.__w)*y[n-1] - 2*self.__psi*v[n-1]))
             y.append(y[n-1]+delta*v[n-1])
 
         pyplot.subplot(221)
@@ -108,7 +108,7 @@ class Oscillator:
         y = [self.__y0]
         v = [self.__v0]
         for n in range(1, nn):
-            v.append((v[n-1] - self.__w*self.__w*y[n-1]*delta/self.__m)/(1+2*self.__psi*delta/self.__m))
+            v.append((v[n-1] - self.__w*self.__w*y[n-1]*delta)/(1+2*self.__psi*delta))
             y.append(y[n-1]+delta*v[n])
 
         pyplot.subplot(221)

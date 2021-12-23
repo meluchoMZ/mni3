@@ -8,8 +8,7 @@ from matplotlib import pyplot
 
 class Oscillator:
 
-    def __init__(self, m: float, w: float, psi: float, y0: float, v0: float, t: float):
-        self.__m = m
+    def __init__(self, w: float, psi: float, y0: float, v0: float, t: float, n: int):
         self.__w = w
         self.__psi = psi
         self.__y0 = y0
@@ -17,12 +16,9 @@ class Oscillator:
         if t <= 0:
             raise ValueError("Simulation time must be positive number!")
         self.__t = t
-
-    def get_m(self):
-        return self.__m
-
-    def set_m(self, m):
-        self.__m = m
+        if n <= 0:
+            raise ValueError("Step number must be a positive integer!")
+        self.__n = n
 
     def get_w(self):
         return self.__w
@@ -57,14 +53,13 @@ class Oscillator:
         self.__t = t
 
     def oscillate_explicit(self):
-        nn = 100000
-        delta = self.__t / nn
+        delta = self.__t /self.__n
         t = []
-        for n in range(nn):
+        for n in range(self.__n):
             t.append(n * delta)
         y = [self.__y0]
         v = [self.__v0]
-        for n in range(1, nn):
+        for n in range(1, self.__n):
             v.append(v[n-1]+delta*(-(self.__w*self.__w)*y[n-1] - 2*self.__psi*v[n-1]))
             y.append(y[n-1]+delta*v[n-1])
 
@@ -100,14 +95,13 @@ class Oscillator:
         pyplot.show()
 
     def oscillate_implicit(self):
-        nn = 100000
-        delta = self.__t / nn
+        delta = self.__t / self.__n
         t = []
-        for n in range(nn):
+        for n in range(self.__n):
             t.append(n * delta)
         y = [self.__y0]
         v = [self.__v0]
-        for n in range(1, nn):
+        for n in range(1, self.__n):
             v.append((v[n-1] - self.__w*self.__w*y[n-1]*delta)/(1+2*self.__psi*delta))
             y.append(y[n-1]+delta*v[n])
 

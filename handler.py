@@ -5,6 +5,7 @@
 from colours import Colours
 from oscillator import Oscillator
 from black_sholes import BlackSholes
+from convection_diffusion import ConvDiff
 
 
 def handle():
@@ -33,12 +34,13 @@ def handle():
                 o.oscillate_implicit()
         elif x == '2':
             tf = float(input("Please insert simulation time: "))
-            xteps = int(input("Please insert step number: "))
+            x_steps = int(input("Please insert step number: "))
             steps = int(input("Please insert time step number: "))
             r = 0.02
             e = 10
             for sigma in [0.15, 0.25, 0.3, 0.85]:
                 for theta in [1, 0.5, 0]:
-                    BlackSholes(sigma, r, e, theta, tf, xteps, steps).compute()
+                    BlackSholes(sigma, r, e, theta, tf, x_steps, steps).compute()
         else:
-            print("Third problem:")
+            steps = int(input("Please insert step number: "))
+            ConvDiff(steps).compute()
